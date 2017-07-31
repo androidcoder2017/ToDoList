@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#c6e2ff"
     tools:context="com.example.a15056112.todolist.MainActivity">
 
     <TextView
@@ -16,6 +17,12 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_gravity="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Lists"
+        android:id="@+id/add"/>
 
     <ListView
         android:layout_width="match_parent"
@@ -43,10 +50,6 @@
 
     <!--</android.support.design.widget.CoordinatorLayout>-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Lists"
-        android:id="@+id/add"/>
+
 
 </LinearLayout>

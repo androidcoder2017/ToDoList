@@ -1,6 +1,7 @@
 package com.example.a15056112.todolist;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.text.Html;
@@ -42,8 +43,17 @@ public class ListsAdapter extends ArrayAdapter<Lists> {
         titleTask = (TextView)view.findViewById(R.id.titleTask);
 
         Lists wholeLists =  lists.get(position);
-        tvTaskTitle.setText("Title: " + wholeLists.getName());
+        tvTaskTitle.setText(wholeLists.getName());
         tvDescTasks.setText(wholeLists.getDescription());
+
+        if (position % 2 == 0) {
+            view.setBackgroundColor(Color.DKGRAY);
+            tvTaskTitle.setTextColor(Color.WHITE);
+            tvDescTasks.setTextColor(Color.WHITE);
+            titleTask.setTextColor(Color.WHITE);
+        } else {
+            view.setBackgroundColor(Color.GRAY);
+        }
 
         return view;
     }

@@ -62,12 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 Lists target = new Lists(db.getAllLists().get(position).getId(), db.getAllLists().get(position).getName(), db.getAllLists().get(position).getDescription());
                 intent.putExtra("data",target);
                 startActivityForResult(intent, reqCode);
-
-                if (position % 2 == 0) {
-                    view.setBackgroundColor(Color.RED);
-                } else {
-                    view.setBackgroundColor(Color.WHITE);
-                }
             }
         });
 

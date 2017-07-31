@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:scrollbars="vertical"
+    android:background="#c6e2ff"
     tools:context="com.example.a15056112.todolist.TasksWritingActivity">
 
     <LinearLayout
