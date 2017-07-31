@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.a15056112.todolist.MainActivity">
+
+    <TextView
+        android:id="@+id/tvTitleList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List of Different Tasks"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvLists">
+    </ListView>
+
+    <!--<android.support.design.widget.CoordinatorLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_gravity="bottom|end"-->
+            <!--android:layout_margin="@dimen/fab_margin"-->
+            <!--android:src="@drawable/ic_action_add"-->
+            <!--android:id="@+id/fab"-->
+            <!--android:backgroundTint="@color/colorPrimary"-->
+            <!--&gt;-->
+
+
+        <!--</android.support.design.widget.FloatingActionButton>-->
+
+
+    <!--</android.support.design.widget.CoordinatorLayout>-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Lists"
+        android:id="@+id/add"/>
+
+</LinearLayout>
