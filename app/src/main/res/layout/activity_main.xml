@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="List of Different Tasks"
         android:textColor="#000"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:textStyle="bold"
         android:layout_gravity="center"/>
 
@@ -27,7 +27,8 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lvLists">
+        android:id="@+id/lvLists"
+        android:scrollbarStyle="outsideOverlay">
     </ListView>
 
     <!--<android.support.design.widget.CoordinatorLayout-->

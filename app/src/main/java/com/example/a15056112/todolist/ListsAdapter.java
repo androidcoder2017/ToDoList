@@ -46,14 +46,7 @@ public class ListsAdapter extends ArrayAdapter<Lists> {
         tvTaskTitle.setText(wholeLists.getName());
         tvDescTasks.setText(wholeLists.getDescription());
 
-        if (position % 2 == 0) {
-            view.setBackgroundColor(Color.DKGRAY);
-            tvTaskTitle.setTextColor(Color.WHITE);
-            tvDescTasks.setTextColor(Color.WHITE);
-            titleTask.setTextColor(Color.WHITE);
-        } else {
-            view.setBackgroundColor(Color.GRAY);
-        }
+        view.setBackgroundColor(Color.WHITE);
 
         return view;
     }

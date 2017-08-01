@@ -1,11 +1,18 @@
 package com.example.a15056112.todolist;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.provider.Contacts;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +23,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Lists> alLists;
     ListsAdapter aa;
 
+    DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +48,12 @@ public class MainActivity extends AppCompatActivity {
         btnAdd = (Button)findViewById(R.id.add);
         lvLists = (ListView)findViewById(R.id.lvLists);
 
-        tvTitleList.setText(Html.fromHtml("<h1><u>List of Different Tasks</u></h1>"));
 
         alLists = new ArrayList<Lists>();
         aa = new ListsAdapter(MainActivity.this, R.layout.row, alLists);
 
-        final DBHelper db = new DBHelper(MainActivity.this);
+        db = new DBHelper(MainActivity.this);
         alLists.addAll(db.getAllLists());
-        //alLists = db.getAllLists();
 
         lvLists.setAdapter(aa);
 
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Lists target = new Lists(db.getAllLists().get(position).getId(), db.getAllLists().get(position).getName(), db.getAllLists().get(position).getDescription());
                 intent.putExtra("data",target);
                 startActivityForResult(intent, reqCode);
+
             }
         });
 
@@ -83,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
     @Override

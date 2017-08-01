@@ -35,7 +35,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter a Task Title (e.g. School Work)"
+        android:hint="Write down any of your tasks freely"
         android:singleLine="false"
         android:id="@+id/etDesc"/>
 
