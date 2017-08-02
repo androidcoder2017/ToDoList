@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddListsActivity extends AppCompatActivity {
 
     EditText etName, etDesc;
     Button btnAdd, btnCancel;
+    Lists lists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,22 @@ public class AddListsActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBHelper db = new DBHelper(AddListsActivity.this);
-                Intent intent = new Intent();
+
                 String name = etName.getText().toString();
                 String desc = etDesc.getText().toString();
-                db.insertLists(name,desc);
-                setResult(RESULT_OK, intent);
-                db.close();
-                finish();
+
+                if (name.isEmpty() || desc.isEmpty()) {
+                    Toast.makeText(AddListsActivity.this, "Please enter the name and description", Toast.LENGTH_SHORT).show();
+                } else {
+                    DBHelper db = new DBHelper(AddListsActivity.this);
+                    Intent intent = new Intent();
+                    db.insertLists(name,desc);
+                    setResult(RESULT_OK, intent);
+                    db.close();
+                    finish();
+                }
+
+
             }
         });
 

@@ -28,7 +28,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     int reqCode = 1;
-    //FloatingActionButton fab;
     Button btnAdd;
     ListView lvLists;
     TextView tvTitleList;
@@ -41,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //fab = (FloatingActionButton)findViewById(R.id.fab);
-
         tvTitleList = (TextView)findViewById(R.id.tvTitleList);
         btnAdd = (Button)findViewById(R.id.add);
         lvLists = (ListView)findViewById(R.id.lvLists);
@@ -65,22 +61,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, TasksWritingActivity.class);
+                Lists lists = alLists.get(position);
+                /*Lists target = new Lists(db.getAllLists().get(position).getId(), db.getAllLists().get(position).getName(),
+                        db.getAllLists().get(position).getDescription(), db.getAllLists().get(position).getDateCreated()); */
 
-                Lists target = new Lists(db.getAllLists().get(position).getId(), db.getAllLists().get(position).getName(), db.getAllLists().get(position).getDescription());
-                intent.putExtra("data",target);
+                intent.putExtra("data", lists);
                 startActivityForResult(intent, reqCode);
 
             }
         });
-
-        /*
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddListsActivity.class);
-                startActivityForResult(intent, reqCode);
-            }
-        }); */
 
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +81,49 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.item_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                final ArrayList<Lists> listsSearchList = new ArrayList<Lists>();
+                ListView lvSearch;
+
+                lvSearch = (ListView)findViewById(R.id.lvLists);
+                for (Lists lists : alLists) {
+                    if (lists.getName().toLowerCase().contains(newText.toLowerCase())) {
+                        listsSearchList.add(lists);
+                        lvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Lists lists = listsSearchList.get(position);
+                                Intent intent = new Intent(MainActivity.this, TasksWritingActivity.class);
+
+                                intent.putExtra("data",lists);
+                                startActivityForResult(intent, reqCode);
+                            }
+                        });
+                    }
+                }
+                aa = new ListsAdapter(MainActivity.this, R.layout.row, listsSearchList);
+                lvSearch.setAdapter(aa);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

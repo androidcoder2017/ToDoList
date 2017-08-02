@@ -12,15 +12,17 @@ public class Lists implements Serializable {
     private int id;
     private String name;
     private String description;
+    private String dateCreated;
 
     public Lists() {
 
     }
 
-    public Lists(int id, String name, String description) {
+    public Lists(int id, String name, String description, String dateCreated) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.dateCreated = dateCreated;
     }
 
     public int getId() {
@@ -46,4 +48,13 @@ public class Lists implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
 }

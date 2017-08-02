@@ -35,14 +35,7 @@ public class TasksWritingActivity extends AppCompatActivity {
         final Lists data = (Lists) intent.getSerializableExtra("data");
 
         etDesc.setText(data.getDescription());
-
-        Calendar now = Calendar.getInstance();
-        final String datetime = now.get(Calendar.DAY_OF_MONTH) + "/" +
-                (now.get(Calendar.MONTH) + 1) + "/" +
-                now.get(Calendar.YEAR) + " " +
-                now.get(Calendar.HOUR_OF_DAY) + ":" +
-                now.get(Calendar.MINUTE);
-        tvUpdated.setText("Last updated on: " + datetime);
+        tvUpdated.setText(data.getDateCreated());
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +45,6 @@ public class TasksWritingActivity extends AppCompatActivity {
                 dbHelper.updateLists(data);
                 dbHelper.close();
                 setResult(RESULT_OK, intent);
-
-                SharedPreferences preferences= getSharedPreferences("saved", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("date", datetime);
-                editor.commit();
 
                 finish();
             }
