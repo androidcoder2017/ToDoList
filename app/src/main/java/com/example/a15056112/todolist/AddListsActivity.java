@@ -1,6 +1,10 @@
 package com.example.a15056112.todolist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,10 +54,46 @@ public class AddListsActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddListsActivity.this);
+
+                builder.setTitle("Cancel");
+                builder.setMessage("Are you sure you want to cancel?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        setResult(RESULT_CANCELED, intent);
+                        finish();
+                        Toast.makeText(AddListsActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNeutralButton("Cancel",null);
+                builder.show();
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Exit");
+        builder.setMessage("Are you sure you want to exit?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent();
                 setResult(RESULT_CANCELED, intent);
                 finish();
+                Toast.makeText(AddListsActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
             }
         });
+        builder.setNeutralButton("Cancel",null);
+        builder.show();
+
     }
 }

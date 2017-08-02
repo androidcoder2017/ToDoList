@@ -30,27 +30,4 @@
         android:id="@+id/lvLists"
         android:scrollbarStyle="outsideOverlay">
     </ListView>
-
-    <!--<android.support.design.widget.CoordinatorLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_gravity="bottom|end"-->
-            <!--android:layout_margin="@dimen/fab_margin"-->
-            <!--android:src="@drawable/ic_action_add"-->
-            <!--android:id="@+id/fab"-->
-            <!--android:backgroundTint="@color/colorPrimary"-->
-            <!--&gt;-->
-
-
-        <!--</android.support.design.widget.FloatingActionButton>-->
-
-
-    <!--</android.support.design.widget.CoordinatorLayout>-->
-
-
-
 </LinearLayout>

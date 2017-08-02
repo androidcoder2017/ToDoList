@@ -1,12 +1,16 @@
 package com.example.a15056112.todolist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.provider.Contacts;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -19,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -61,11 +66,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, TasksWritingActivity.class);
-                Lists lists = alLists.get(position);
-                /*Lists target = new Lists(db.getAllLists().get(position).getId(), db.getAllLists().get(position).getName(),
-                        db.getAllLists().get(position).getDescription(), db.getAllLists().get(position).getDateCreated()); */
+                Lists target = new Lists(db.getAllLists().get(position).getId(), db.getAllLists().get(position).getName(),
+                        db.getAllLists().get(position).getDescription(), db.getAllLists().get(position).getDateCreated());
 
-                intent.putExtra("data", lists);
+                intent.putExtra("data", target);
                 startActivityForResult(intent, reqCode);
 
             }
@@ -82,50 +86,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-
-        final MenuItem searchItem = menu.findItem(R.id.item_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                final ArrayList<Lists> listsSearchList = new ArrayList<Lists>();
-                ListView lvSearch;
-
-                lvSearch = (ListView)findViewById(R.id.lvLists);
-                for (Lists lists : alLists) {
-                    if (lists.getName().toLowerCase().contains(newText.toLowerCase())) {
-                        listsSearchList.add(lists);
-                        lvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Lists lists = listsSearchList.get(position);
-                                Intent intent = new Intent(MainActivity.this, TasksWritingActivity.class);
-
-                                intent.putExtra("data",lists);
-                                startActivityForResult(intent, reqCode);
-                            }
-                        });
-                    }
-                }
-                aa = new ListsAdapter(MainActivity.this, R.layout.row, listsSearchList);
-                lvSearch.setAdapter(aa);
-                return true;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
 
@@ -135,6 +95,54 @@ public class MainActivity extends AppCompatActivity {
             aa = new ListsAdapter(MainActivity.this, R.layout.row, alLists);
             lvLists.setAdapter(aa);
         }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.exit) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Exit");
+            builder.setMessage("Are you sure you want to exit?");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    Toast.makeText(MainActivity.this, "Exited", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setNeutralButton("No",null);
+            builder.show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Exit");
+        builder.setMessage("Are you sure you want to exit?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                Toast.makeText(MainActivity.this, "Exited", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNeutralButton("No",null);
+        builder.show();
 
     }
 }
